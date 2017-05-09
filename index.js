@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 
-//const SheetHelper = require('./lib/sheethelper');
+const SheetHelper = require('./lib/sheethelper');
 
 const app = express();
 
@@ -44,6 +44,11 @@ if (process.env.FETCH_REPS_EVENTS && process.env.FETCH_REPS_EVENTS === 'true') {
   // TODO
 }
 
-
+const sheetHelper = new SheetHelper();
+sheetHelper.init()
+  .then(sheetHelper.fetch)
+  .catch((err) => {
+    debug('Failed to fetch!', err);
+  });
 
 module.exports = app;

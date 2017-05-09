@@ -6,6 +6,7 @@ This reads from the impact form which is presented at the end of all activities 
 ## Run the API
 
 ```
+$ cp config-sample.json config.json
 $ npm install
 $ npm start
 ```
