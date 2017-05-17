@@ -30,7 +30,7 @@ $ npm install
 $ npm start
 ```
 
-Now you can find the API on ```localhost:5500```.
+You can now find the API on ```localhost:5500```.
 
 ## Update the Reps DB
 The Reps links are fetched from the Reps portal. This is not done on every request, as this would take way too long. All the Reps info (public only) is stored in a json database. To update the database, run
@@ -40,4 +40,4 @@ $ npm run fetch:users
 ```
 
 ## The following endpoints are available
-/ : list all response summaries grouped by event as well as totals
+```/```: list all response summaries grouped by event as well as totals
