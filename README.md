@@ -5,13 +5,15 @@ This reads from the impact form which is presented at the end of all activities 
 
 ## Run the API
 
+First you need to create a ```client_secret.json``` file as described [here](https://developers.google.com/sheets/api/quickstart/nodejs).
+
 ```
 $ cp config-sample.json config.json
 $ npm install
 $ npm start
 ```
 
-Now you can find the API on ```localhost:7000```.
+Now you can find the API on ```localhost:5500```.
 
 ## The following endpoints are available
 [TODO]
