@@ -9,11 +9,35 @@ First you need to create a ```client_secret.json``` file as described [here](htt
 
 ```
 $ cp config-sample.json config.json
+```
+
+The ```config.json``` script holds the configuration values. This includes the spreadsheet ID as well as the range of cells to fetch. Please adapt it to your needs. The spreadsheet ID is the cryptic sequence of numbers and letters in the URL of your spreadsheet.
+
+Example config:
+
+```
+{
+  "sheetId": "1RT17Uar51jsm3g9tO3vhYu3euTsPl11Xq-Aswt34Q1b",
+  "range": "My Sheet Name!A:E",
+  "repsUserStorageKey": "REPS_USERS"
+}
+```
+
+Now you can continue with your installation.
+
+```
 $ npm install
 $ npm start
 ```
 
 Now you can find the API on ```localhost:5500```.
 
+## Update the Reps DB
+The Reps links are fetched from the Reps portal. This is not done on every request, as this would take way too long. All the Reps info (public only) is stored in a json database. To update the database, run
+
+```
+$ npm run fetch:users
+```
+
 ## The following endpoints are available
-[TODO]
+/ : list all response summaries grouped by event as well as totals
