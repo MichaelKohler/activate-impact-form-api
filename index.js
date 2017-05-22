@@ -8,12 +8,20 @@ const sheetHelper = new SheetHelper();
 
 const ResponseParser = require('./lib/responseParser');
 
+const RemoUserHelper = require('./lib/remoUserHelper');
+const remoUserHelper = new RemoUserHelper();
+
 const app = express();
 
 const port = process.env.PORT || 5500;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/reps', (req, res) => {
+  const repsNames = remoUserHelper.getAllRepsNames()
+  res.json(repsNames);
+});
 
 app.use('/', (req, res) => {
   sheetHelper.fetch()
