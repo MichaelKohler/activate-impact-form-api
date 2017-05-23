@@ -7,6 +7,7 @@ const SheetHelper = require('./lib/sheetHelper');
 const sheetHelper = new SheetHelper();
 
 const ResponseParser = require('./lib/responseParser');
+const responseParser = new ResponseParser();
 
 const RemoUserHelper = require('./lib/remoUserHelper');
 const remoUserHelper = new RemoUserHelper();
@@ -33,7 +34,7 @@ app.use('/reps', (req, res) => {
 app.use('/', (req, res) => {
   sheetHelper.fetch()
     .then((result) => {
-      return ResponseParser.create(result);
+      return responseParser.parse(result);
     })
     .then((responses) => {
       res.json(responses);
