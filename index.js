@@ -71,10 +71,6 @@ server.on('listening', () => {
   debug('listening on port ' + server.address().port);
 });
 
-if (process.env.FETCH_REPS_EVENTS && process.env.FETCH_REPS_EVENTS === 'true') {
-  // TODO
-}
-
 sheetHelper.init();
 
 module.exports = app;
