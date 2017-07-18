@@ -3,14 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 
-const SheetHelper = require('./lib/sheetHelper');
-const sheetHelper = new SheetHelper();
-
-const ResponseParser = require('./lib/responseParser');
-const responseParser = new ResponseParser();
-
 const RemoUserHelper = require('./lib/remoUserHelper');
 const remoUserHelper = new RemoUserHelper();
+
+const responses = require('./lib/responses');
 
 const app = express();
 
@@ -26,16 +22,41 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/reps', (req, res) => {
+app.get('/reps', (req, res) => {
   const repsNames = remoUserHelper.getAllRepsNames()
   res.json(repsNames);
 });
 
-app.use('/', (req, res) => {
-  sheetHelper.fetch()
-    .then((result) => {
-      return responseParser.parse(result);
+app.get('/search', (req, res) => {
+  responses.fetch()
+    .then((responses) => {
+      // A poor man's search algo
+      if (req.query.name) {
+        responses.events = responses.events.filter((event) => {
+          return event.organizerName === req.query.name;
+        });
+      }
+
+      if (req.query.eventDate) {
+        responses.events = responses.events.filter((event) => {
+          return event.eventDate === req.query.eventDate;
+        });
+      }
+
+      return responses.events;
     })
+    .then((responses) => {
+      res.json(responses);
+    })
+    .catch((err) => {
+      debug('FAILED_TO_FETCH_RESPONSES', err);
+      res.status(500);
+      res.json({ error: { message: err.message }});
+    });
+});
+
+app.get('/', (req, res) => {
+  responses.fetch()
     .then((responses) => {
       res.json(responses);
     })
@@ -70,7 +91,5 @@ server.listen(port);
 server.on('listening', () => {
   debug('listening on port ' + server.address().port);
 });
-
-sheetHelper.init();
 
 module.exports = app;
