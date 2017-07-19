@@ -41,3 +41,5 @@ $ npm run fetch:users
 
 ## The following endpoints are available
 ```/```: list all response summaries grouped by event as well as totals
+```/search```: list all response summaries filtered by the search term. Example: ```/search?name=Michael Kohler&eventDate=2017-07-22
+```/reps```: returns an array with all Rep names
